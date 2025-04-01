@@ -4,7 +4,7 @@ public class App {
 /*
 @autor:Yirman Fonseca 202310807
         Juan Garcia 202310137
-        Laura Quiroga
+        Laura Quiroga 202310168
  */    
 public static void main(String[] args) throws Exception {
         System.out.println("Hello, World!");

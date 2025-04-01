@@ -3,7 +3,7 @@ import co.edu.uptc.controller.Control;
 public class App {
 /*
 @autor:Yirman Fonseca
-        Juan Garcia
+        Juan Garcia 202310137
         Laura Quiroga
  */    
 public static void main(String[] args) throws Exception {

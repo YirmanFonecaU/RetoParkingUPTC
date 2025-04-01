@@ -6,5 +6,6 @@ public class Receptionist {
     public Receptionist(){
         
     }
+    
 
 }

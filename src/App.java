@@ -2,7 +2,7 @@ import co.edu.uptc.controller.Control;
 
 public class App {
 /*
-@autor:Yirman Fonseca
+@autor:Yirman Fonseca 202310807
         Juan Garcia 202310137
         Laura Quiroga
  */    

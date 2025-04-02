@@ -1,7 +1,7 @@
 package co.edu.uptc.model;
 
 public class User {
-    protected int id;
+    private int id;
     protected String userName;
     protected String password;
     protected int phone;

@@ -4,7 +4,7 @@ import java.util.Map;
 
 public class User {
 
-    protected int id;
+    protected  int id;
     protected String userName;
     protected String password;
     protected int phone;

@@ -1,4 +1,8 @@
-co.edu.uptc.view;
+
+
+package co.edu.uptc.view;
+import javax.swing.JFrame;
+
 public class AdministrationMenuFrame extends JFrame {
     public AdministrationMenuFrame(){
         super("Menú Administración");

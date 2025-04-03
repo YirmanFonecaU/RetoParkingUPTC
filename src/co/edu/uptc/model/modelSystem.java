@@ -1,6 +1,9 @@
 package co.edu.uptc.model;
 
-public vlass modelSystem {
+import java.util.ArrayList;
+import java.util.List;
+
+public class modelSystem {
     private List<Parking> parkingList;
     private List<Receptionist> receptionistList;
     private Receptionist receptionist;

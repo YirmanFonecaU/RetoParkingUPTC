@@ -1,7 +1,5 @@
 package co.edu.uptc.model;
 
-import java.util.Map;
-
 public class User {
 
     protected  int id;
@@ -10,16 +8,13 @@ public class User {
     protected int phone;
     protected String direction;
     protected String email;
-    protected Map<String, String> account;
+    
 
     public User() {
-
+        
     }
-
-    public void logIn(String user, String password) {
-
-    }
-
+   
+    
     public int getId() {
         return id;
     }

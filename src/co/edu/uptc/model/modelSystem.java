@@ -17,8 +17,17 @@ public class ModelSystem {
         parkingList = new ArrayList<Parking>();
         receptionistList = new ArrayList<Receptionist>();
         account= new HashMap<String, String>();
+        account.put("admin", "password");
+        account.put("key", "value");
         receptionist = new Receptionist();
         parking = new Parking();
+    }
+    
+    public boolean validateRol(String user){
+        boolean validate= false;
+        if(user.equals("admin"))
+        validate=true;
+        return validate;
     }
 
     public boolean  LogIn(String user, String password) {

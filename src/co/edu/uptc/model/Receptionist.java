@@ -6,8 +6,8 @@ public class Receptionist  extends User{
 
     public Receptionist(){
         super();
-        this.id=id;
-        this.userName = userName;
+        this.id=0;
+        this.userName = "";
         this.password = password;
         this.phone = phone;
         this.direction = direction;

@@ -2,12 +2,23 @@ package co.edu.uptc.model;
 
 public class Vehicle {
     private String plate;
-    private String vehicleTipe;
+    private VehicleType type;
     
-    public Vehicle(String plate, String vehicleTipe){
-        this.plate=plate;
-        this.vehicleTipe=vehicleTipe;
+    public Vehicle(String plate, VehicleType type) {
+        this.plate = plate;
+        this.type = type;
+    }
+
+    public String getPlate() {
+        return plate;
     }
     
+    public VehicleType getType() {
+        return type;
+    }
     
+    @Override
+    public String toString() {
+        return "Vehicle [plate=" + plate + ", type=" + type + "]";
+    }
 }

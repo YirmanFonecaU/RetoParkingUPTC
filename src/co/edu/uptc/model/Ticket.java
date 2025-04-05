@@ -1,5 +1,8 @@
 package co.edu.uptc.model;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class Ticket {
@@ -8,38 +11,87 @@ public class Ticket {
     private LocalDateTime entryDateTime;
     private LocalDateTime  exitDateTime;
     private double totalPay;
-    private ArrayList<Object> registroTicket;       
-    private Parking parking;
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    private static final double RATE_PER_MINUTE = 100.0;
+   
     
-    public Ticket(){
+    public Ticket(int ticketID, Vehicle vehicle, LocalDateTime entryDateTime){
         this.ticketID= ticketID;
         this.vehicle= vehicle;
         this.entryDateTime=entryDateTime;
-        this.exitDateTime=entryDateTime;
-        this.totalPay=totalPay;
-        this.registroTicket=  new ArrayList <>();
     }
     
-    
-    public void registrarSalida(LocalDateTime exitDateTime) {
-        this.exitDateTime = exitDateTime;
-        this.totalPay = totalPay();
+    public void checkOut(LocalDateTime exitDateTime){
+        this.exitDateTime= exitDateTime;
+        this.totalPay= calculateTotalPay();
     }
-    public double totalPay(){
-         if (exitDateTime == null || entryDateTime == null) {
-            return 0.0;
+    public double calculateTotalPay() {
+        if (exitDateTime == null) {
+            return 0;
         }
-        long minutos = ChronoUnit.MINUTES.between(entryDateTime, exitDateTime);
-        double tarifaPorMinuto = 0.05; 
-        return minutos * tarifaPorMinuto;
+        long minutes = java.time.Duration.between(entryDateTime, exitDateTime).toMinutes();
+
+        return Math.max(1, minutes) * RATE_PER_MINUTE;
     }
-    public String printTicket(){
-        System.out.println("Ticket ID: " + ticketId);
-        System.out.println("Vehículo: " + vehiculo.getPlaca());
-        System.out.println("Hora de ingreso: " + entryDateTime);
-        System.out.println("Hora de salida: " + (exitDateTime != null ? exitDateTime : "Aún en el parqueadero"));
-        System.out.println("Total a pagar: $" + totalPagar);
-}
+    public String printEntryTicket() {
+        return "Detalles de ingreso\n" +
+               "Fecha: " + entryDateTime.format(formatter) + "\n" +
+               "Referencia: " + ticketID + "\n" +
+               "Estado: Aprobado\n" +
+               "Placa: " + vehicle.getPlate() + "\n" +
+               "Fracción: $2.000";
+    }
+    public String printExitTicket() {
+        return "Detalles del pago\n" +
+               "Fecha de pago: " + exitDateTime.format(formatter) + "\n" +
+               "Referencia: " + ticketID + "\n" +
+               "Estado: Aprobado\n" +
+               "Forma de pago: Efectivo\n" +
+               "Valor pagado: " + String.format("%.0f", totalPay) + "\n" +
+               "Placa: " + vehicle.getPlate();
+    }
+
+    public int getTicketID() {
+        return ticketID;
+    }
+
+    public void setTicketID(int ticketID) {
+        this.ticketID = ticketID;
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
+    }
+
+    public LocalDateTime getEntryDateTime() {
+        return entryDateTime;
+    }
+
+    public void setEntryDateTime(LocalDateTime entryDateTime) {
+        this.entryDateTime = entryDateTime;
+    }
+
+    public LocalDateTime getExitDateTime() {
+        return exitDateTime;
+    }
+
+    public void setExitDateTime(LocalDateTime exitDateTime) {
+        this.exitDateTime = exitDateTime;
+    }
+
+    public double getTotalPay() {
+        return totalPay;
+    }
+
+    public void setTotalPay(double totalPay) {
+        this.totalPay = totalPay;
+    }
+    
+   
+    }
 
 
-}

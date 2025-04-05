@@ -79,12 +79,12 @@ public class LogIngPane extends JFrame implements ActionListener {
                 if (isValidLogin) {
                     // Abrir el menú correspondiente
                     if (isAdmin) {
-                        new AdministrationMenuFrame(); // Asegúrate que sea visible dentro del constructor
+                        new AdministrationMenuFrame(); 
                     } else {
                         new ReceptionistMenuFrame();
                     }
                     // Cerrar ventana de login
-                    dispose(); // Cierra la ventana actual
+                    dispose(); 
                 } else {
                     JOptionPane.showMessageDialog(button, "Usuario o contraseña incorrectos");
                 }

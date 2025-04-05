@@ -1,5 +1,6 @@
 package co.edu.uptc.view;
 
+<<<<<<< HEAD
 import java.util.concurrent.Flow;
 
 import javax.swing.JButton;
@@ -65,3 +66,18 @@ public class AvailableSpacesFrame extends JFrame implements ActionListener {
     
 
 
+=======
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
+
+public class AvailableSpacesFrame extends JFrame {
+    public AvailableSpacesFrame(){
+        super("Availabe Spaces");
+        setSize(800,600);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+
+}
+>>>>>>> 7ea8ebc4e07e525cc9f9a247f4fa9e473544b15e

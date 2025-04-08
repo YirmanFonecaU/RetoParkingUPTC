@@ -13,6 +13,10 @@ public class Presenter {
         this.model = new ModelSystem();
         System.out.println("ModelSystem creado en Presenter!");
     }
+    public String exitVehicleAndPrintTicket(String plate){
+        return model.processAndSaveTicketExit(plate);
+    }
+
     public boolean verifyRol(String user){
         return model.validateRol(user);
     }

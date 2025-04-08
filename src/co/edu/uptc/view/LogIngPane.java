@@ -1,5 +1,5 @@
 package co.edu.uptc.view;
-mport co.edu.uptc.presenter.Presenter;
+import co.edu.uptc.presenter.Presenter;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

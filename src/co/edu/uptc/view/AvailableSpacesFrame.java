@@ -1,21 +1,15 @@
 package co.edu.uptc.view;
 
-<<<<<<< HEAD
-import java.util.concurrent.Flow;
-
+import co.edu.uptc.presenter.Presenter;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.WindowConstants;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import co.edu.uptc.presenter.Presenter;
 
 public class AvailableSpacesFrame extends JFrame implements ActionListener {
     private JLabel titleLabel;
@@ -66,18 +60,3 @@ public class AvailableSpacesFrame extends JFrame implements ActionListener {
     
 
 
-=======
-import javax.swing.JFrame;
-import javax.swing.WindowConstants;
-
-public class AvailableSpacesFrame extends JFrame {
-    public AvailableSpacesFrame(){
-        super("Availabe Spaces");
-        setSize(800,600);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setVisible(true);
-    }
-
-}
->>>>>>> 7ea8ebc4e07e525cc9f9a247f4fa9e473544b15e

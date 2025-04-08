@@ -1,6 +1,5 @@
 package co.edu.uptc.view;
-
-import co.edu.uptc.presenter.Presenter;
+mport co.edu.uptc.presenter.Presenter;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -75,13 +74,15 @@ public class LogIngPane extends JFrame implements ActionListener {
             
                 boolean isAdmin = presenter.verifyRol(txtUser.getText());
                 boolean isValidLogin = presenter.logIn(txtUser.getText(), new String(txtPassword.getPassword()));
-        
+            System.out.println("V "+txtUser.getText());
+            System.out.println("V "+new String(txtPassword.getPassword()));
                 if (isValidLogin) {
                     // Abrir el menú correspondiente
                     if (isAdmin) {
                         new AdministrationMenuFrame(); 
                     } else {
-                        new ReceptionistMenuFrame();
+                        new ReceptionistMenuFrame(txtUser.getText());
+                        presenter.setReceptionistTurn(txtUser.getText());
                     }
                     // Cerrar ventana de login
                     dispose(); 
@@ -92,3 +93,4 @@ public class LogIngPane extends JFrame implements ActionListener {
     }
 
 }
+

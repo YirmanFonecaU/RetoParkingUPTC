@@ -3,8 +3,12 @@ package co.edu.uptc.model;
 public class Receptionist  extends User{
     private double income;
     private int totalVehiclesEntered;
-
     public Receptionist(){
+        income=0;
+        totalVehiclesEntered=0;
+    }
+
+    public Receptionist(int id, String userName, String password, String direcction, String email){
         super();
         this.id=0;
         this.userName = "";

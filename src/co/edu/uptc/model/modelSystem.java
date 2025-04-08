@@ -16,7 +16,7 @@ public class ModelSystem {
     private Receptionist receptionist;
     private Parking currentParking;
     private boolean isLoggendIn;
-
+    private String receptionistTurn;
 
     private static final Pattern CAR_PLATE_PATTERN = Pattern.compile("^[A-Z]{3}\\d{3}$");
     private static final Pattern MOTORCYCLE_PLATE_PATTERN = Pattern.compile("^[A-Z]{3}\\d{2}[A-Z]$");
@@ -134,5 +134,12 @@ public class ModelSystem {
     
     public Parking getCurrentParking() {
         return currentParking;
+    }
+     public String getReceptionistTurn() {
+        return receptionistTurn;
+    }
+
+    public void setReceptionistTurn(String receptionistTurn) {
+        this.receptionistTurn = receptionistTurn;
     }
 }

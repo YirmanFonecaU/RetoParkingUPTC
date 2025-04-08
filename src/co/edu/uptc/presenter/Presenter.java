@@ -19,6 +19,12 @@ public class Presenter {
     public boolean logIn(String user, String password){
         return model.LogIn(user, password);
     }
+     public void setReceptionistTurn(String user){
+        model.setReceptionistTurn(user);
+    }
+    public String getReceptionistTurn(){
+        return model.getReceptionistTurn();
+    }
   
     
 

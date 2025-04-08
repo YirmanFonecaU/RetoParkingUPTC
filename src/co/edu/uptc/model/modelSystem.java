@@ -29,7 +29,7 @@ public class ModelSystem {
         account.put("key", "value");
         receptionist = new Receptionist();
         account= new HashMap<String, String>();
-
+        
         currentParking = new Parking("ParkingUPTC", "Universidad Pedagógica y Tecnológica de Colombia");
         parkingList.add(currentParking);
         
@@ -59,6 +59,15 @@ public class ModelSystem {
                 receptionist.setPassword(newPassword);
             }
         }
+    }
+    public void createTicket(String plate, String type){
+       VehicleType typeVehicle= VehicleType.fromString(type);
+        Vehicle vehicle= new Vehicle(plate, typeVehicle);
+        addTicket(vehicle);
+
+    }
+    private void addTicket( Vehicle vehicle){
+        currentParking.createEntryTicket(vehicle);
     }
 
     public void addReceptionist(Receptionist receptionist) {

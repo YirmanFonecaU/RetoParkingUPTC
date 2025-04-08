@@ -12,6 +12,7 @@ public class Parking {
      private Map<VehicleType, Integer> totalSpacesByType;
     private List<Vehicle> parkedVehicles;
     private List<Ticket> allTickets;
+    private List<Ticket> ResiveTickets;
     private int nextTicketId;
 
     public Parking(String name, String location) {

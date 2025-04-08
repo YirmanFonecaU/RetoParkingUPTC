@@ -1,5 +1,6 @@
 package co.edu.uptc.view;
 
+import co.edu.uptc.presenter.Presenter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +22,7 @@ public class AdministrationMenuFrame extends JFrame implements ActionListener {
     private JPanel addReceptioinistPanel;
     private JPanel changePasswordPanel;
     private JPanel generateReportPanel;
+    private Presenter presenter;
     private JLabel nameLabel;
     private JTextField nameField ;
     private JLabel addressLabel;
@@ -47,6 +49,7 @@ public class AdministrationMenuFrame extends JFrame implements ActionListener {
         setSize(500, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        presenter = Presenter.getInstance();
         setLayout(new BorderLayout());
         southPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         closeSession();
@@ -55,7 +58,9 @@ public class AdministrationMenuFrame extends JFrame implements ActionListener {
         rightCenterPanel(); 
         getContentPane().add(southPanel, BorderLayout.NORTH);
         getContentPane().add(centerPanel, BorderLayout.CENTER);
+
         setVisible(true);
+
     }
 
     private void closeSession() {
@@ -495,6 +500,7 @@ private JPanel generateReportPanel() {
     if(e.getSource() == saveButton){
 
         if(newPasswordField.getText().equals(repeatPasswordField.getText())){
+            presenter.changeCrededencialReceptionist(Integer.parseInt(documentField.getText()), newPasswordField.getText());
             JOptionPane.showMessageDialog(saveButton, "La contraseña se ha cambiado exitosamente", "Cambio Realizados", JOptionPane.INFORMATION_MESSAGE); 
         }else{
             JOptionPane.showMessageDialog(saveButton, "Las contraseñas no coinciden. Intente nuevamente", "Cambio no Realizado", JOptionPane.INFORMATION_MESSAGE); 

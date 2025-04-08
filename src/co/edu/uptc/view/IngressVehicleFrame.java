@@ -55,7 +55,7 @@ public class IngressVehicleFrame extends JFrame implements ActionListener {
 
         // Radio buttons para tipo de vehículo
         JPanel radioPanel = new JPanel(new FlowLayout());
-        rbtnAuto = new JRadioButton("Automóvil");
+        rbtnAuto = new JRadioButton("carro");
         rbtnMoto = new JRadioButton("Moto");
         ButtonGroup grupoVehiculo = new ButtonGroup();
         grupoVehiculo.add(rbtnAuto);
@@ -85,12 +85,13 @@ public class IngressVehicleFrame extends JFrame implements ActionListener {
             dispose();
         } else if (source == confirmBtn) {
             String plate = txtPlate.getText().trim();
-            String vehicleTipe = rbtnAuto.isSelected() ? "Automovil"
+            String vehicleTipe = rbtnAuto.isSelected() ? "Carro"
                     : rbtnMoto.isSelected() ? "Moto" : "";
                     if(plate.isEmpty() || vehicleTipe.isEmpty()){
                         JOptionPane.showMessageDialog(this, "Por favor igrese todos los datos");
                     }else{
                         JOptionPane.showMessageDialog(this, "Vehículo registrado:\nPlaca: " + plate + "\nTipo: " + vehicleTipe);
+
                         new ReceptionistMenuFrame(presenter.getReceptionistTurn());
                         dispose();
                     }

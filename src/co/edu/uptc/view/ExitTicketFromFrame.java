@@ -24,6 +24,8 @@ public class ExitTicketFromFrame extends JFrame implements ActionListener {
     private JLabel titleLabel;
     private JLabel plateLabel;
     private JLabel amountLabel;
+    private JLabel amountGivenLabel;
+    private JLabel changeLabel;
     private JLabel paymentMethodLabel;
     private JLabel stateLabel;
     private JLabel referenceLabel;
@@ -37,7 +39,7 @@ public class ExitTicketFromFrame extends JFrame implements ActionListener {
     private double amountGiven;
     private double change;
 
-    public ExitTicketFromFrame(Ticket ticket, double amountPaid, String paymentMethod, double amountGiven, double change) {
+    public ExitTicketFromFrame(Ticket ticket, double amountPaid,  double amountGiven, double change) {
         super("ParkingUPTC - Recibo Generado");
         this.ticket = ticket;
         this.amountPaid = amountPaid;
@@ -60,9 +62,11 @@ public class ExitTicketFromFrame extends JFrame implements ActionListener {
         titleLabel =new JLabel("¡Proseso de pago finalizado! ", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial",Font.BOLD,18));
 
-        plateLabel = new JLabel("placa" + ticket.getVehicle().getPlate());
-        amountLabel = new JLabel("Valor pagado: "+ String.format("%.0f", amountPaid));
-        paymentMethodLabel = new JLabel("Forma de pago: " + paymentMethod);
+        plateLabel = new JLabel("placa: " + ticket.getVehicle().getPlate());
+        amountLabel = new JLabel("Valor a pagar: "+ String.format("%.0f", amountPaid));
+        amountGivenLabel = new JLabel("Valor pagado: "+ String.format("%.0f", amountGiven));
+        changeLabel = new JLabel("Valor devuelto: "+ String.format("%.0f", change));
+
         stateLabel = new JLabel("Estado: Aprobado");
         referenceLabel = new JLabel("Referencia: " + ticket.getTicketID());
 
@@ -73,8 +77,8 @@ public class ExitTicketFromFrame extends JFrame implements ActionListener {
         printBotton = new JButton("Imprimir");
         printBotton.addActionListener(this);
 
-        printBotton = new JButton("Finalizar");
-        printBotton.addActionListener(this);
+        finishButton = new JButton("Finalizar");
+        finishButton.addActionListener(this);
 
     }
 
@@ -95,7 +99,8 @@ public class ExitTicketFromFrame extends JFrame implements ActionListener {
 
         detailsPanel.add(plateLabel);
         detailsPanel.add(amountLabel);
-        detailsPanel.add(paymentMethodLabel);
+        detailsPanel.add(amountGivenLabel);
+        detailsPanel.add(changeLabel);
         detailsPanel.add(stateLabel);
         detailsPanel.add(referenceLabel);
         detailsPanel.add(dateLabel);

@@ -9,10 +9,12 @@ public class User {
     protected String direction;
     protected String email;
     
+    
 
     public User() {
-        
+      
     }
+    
    
     
     public int getId() {
@@ -62,5 +64,7 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+   
+    
 
 }

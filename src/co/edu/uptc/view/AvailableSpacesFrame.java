@@ -29,8 +29,8 @@ public class AvailableSpacesFrame extends JFrame implements ActionListener {
 
         String[] columnNames = {"TIPO", "DISPONIBLES"};
         Object[][] data = {
-                {"CARRO", 10},
-                {"MOTO", 12},
+                {"CARRO", presenter.minorSpaces("carro")},
+                {"MOTO", presenter.minorSpaces("moto")},
         };
         spacesTable = new JTable(data, columnNames);
         spacesTable.setEnabled(false);

@@ -1,5 +1,6 @@
 package co.edu.uptc.view;
 
+import co.edu.uptc.presenter.Presenter;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -21,9 +22,11 @@ import javax.swing.event.MouseInputListener;
 
 public class ReceptionistMenuFrame extends JFrame implements MouseInputListener {
     private JLabel lblLogOut;
+    private Presenter presenter;
 
     public ReceptionistMenuFrame(String user) {
         super("Receptionist Menu");
+        presenter=Presenter.getInstance();
         setSize(800, 600);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -96,6 +99,7 @@ public class ReceptionistMenuFrame extends JFrame implements MouseInputListener 
     @Override
     public void mouseClicked(MouseEvent e) {
         if(e.getSource()==lblLogOut){
+            presenter.generateReport();
             new LogIngPane();
             dispose();
         }

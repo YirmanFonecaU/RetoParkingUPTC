@@ -23,6 +23,9 @@ public class Presenter {
     public boolean verifyRol(String user) {
         return model.validateRol(user);
     }
+    public void createParking(String name, String address, int spaces){
+        model.createParking(name, address, spaces);
+    }
 
     public boolean logIn(String user, String password) {
         return model.LogIn(user, password);

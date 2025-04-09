@@ -115,6 +115,9 @@ public class ModelSystem {
     public boolean isLoggedIn() {
         return isLoggendIn;
     }
+    public void createParking(String name, String address, int spaces){
+        currentParking = new Parking(name, address, spaces);
+    }
     public Map<VehicleType, Integer> getAvailabilityByType() {
         return currentParking.getAvailabilityByType();
     }

@@ -509,7 +509,7 @@ public void panelReport2(){
         generateReportPanel();
     }
     if(e.getSource() == registerButtonParking){
-        
+        presenter.createParking(nameField.getText(), addressField.getText(), Integer.parseInt(spacesField.getText()));
         JOptionPane.showMessageDialog(registerButtonParking, "El parqueadero ha sido registrado Exitosamente", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
     }
     if(e.getSource() == generateButton){

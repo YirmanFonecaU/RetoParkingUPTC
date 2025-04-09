@@ -1,10 +1,15 @@
 package co.edu.uptc.model;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
+
+import javax.swing.JOptionPane;
 
 public class ModelSystem {
 
@@ -16,6 +21,9 @@ public class ModelSystem {
     private boolean isLoggendIn;
     private String receptionistTurn;
     private List<Ticket> printedtickets;
+    private int totalVehicle;
+    private double totalpayments;
+    
 
     private static final Pattern CAR_PLATE_PATTERN = Pattern.compile("^[A-Z]{3}\\d{3}$");
     private static final Pattern MOTORCYCLE_PLATE_PATTERN = Pattern.compile("^[A-Z]{3}\\d{2}[A-Z]$");
@@ -48,7 +56,7 @@ public class ModelSystem {
             savePrintedTicket(ticket);
             return ticket.printTicket();
         }
-        return JOptionPane.showInputDialog("No se encontro un ticket activo para la placa " + plate);
+        return JOptionPane.showInputDialog("No se encontro un ticket activo para la placa " + plate, "Error");
     }
     public boolean validateRol(String user){
         boolean validate= false;
@@ -140,6 +148,31 @@ public class ModelSystem {
         Vehicle vehicle = new Vehicle(plate, type);
         return currentParking.createEntryTicket(vehicle);
     }
+    public List<Ticket> getTicketsByDate(Date inputDate) {
+        List<Ticket> filtered = new ArrayList<>();
+        LocalDate selectedDate = inputDate.toInstant()
+                                          .atZone(ZoneId.systemDefault())
+                                          .toLocalDate();
+    
+        for (Ticket ticket : getAllTickets()) {
+            if (ticket.getDate().toLocalDate().equals(selectedDate)) {
+                filtered.add(ticket);
+            }
+        }
+        return filtered;
+    }
+        public double getTotalPaymentsByDate(Date targetDate) {
+            List<Ticket> filtered = getTicketsByDate(targetDate);
+            totalpayments =0;
+            for (Ticket ticket : filtered) {
+                totalpayments += ticket.getTotalPay();
+            }
+            return totalpayments;
+        }
+
+    public int vehicleEntry(){
+        return currentParking.getVehicleEntry();
+    }
     
     public Ticket registerVehicleExit(String plate) {
         return currentParking.processExit(plate);
@@ -152,6 +185,7 @@ public class ModelSystem {
     public List<Ticket> getAllTickets() {
         return currentParking.getAllTickets();
     }
+
     
     public Ticket findActiveTicket(String plate) {
         return currentParking.findActiveTicket(plate);
@@ -171,4 +205,5 @@ public class ModelSystem {
     public void setReceptionistTurn(String receptionistTurn) {
         this.receptionistTurn = receptionistTurn;
     }
+
 }

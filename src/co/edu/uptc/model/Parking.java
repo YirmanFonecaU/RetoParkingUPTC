@@ -14,8 +14,16 @@ public class Parking {
     private List<Vehicle> parkedVehicles;
     private List<Ticket> allTickets;
     private List<Ticket> ResiveTickets;
+    private int vehicleEntry;
    
 
+    public int getVehicleEntry() {
+        return vehicleEntry;
+    }
+
+    public void setVehicleEntry(int vehicleEntry) {
+        this.vehicleEntry = vehicleEntry;
+    }
     private int nextTicketId;
 
     public Parking(String name, String address, int spaces) {
@@ -60,8 +68,9 @@ public class Parking {
         }
         
         parkedVehicles.add(vehicle);
-        Ticket ticket = new Ticket(nextTicketId++, vehicle, LocalDateTime.now());
+        Ticket ticket = new Ticket(nextTicketId++, vehicle, LocalDateTime.now(), LocalDateTime.now());
         allTickets.add(ticket);
+        vehicleEntry++;
         return ticket;
     }
     

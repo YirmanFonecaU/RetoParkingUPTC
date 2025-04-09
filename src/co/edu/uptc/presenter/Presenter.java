@@ -1,6 +1,7 @@
 package co.edu.uptc.presenter;
 
 import co.edu.uptc.model.ModelSystem;
+import java.util.Date;
 
 
 public class Presenter {
@@ -15,6 +16,9 @@ public class Presenter {
     }
     public String exitVehicleAndPrintTicket(String plate){
         return model.processAndSaveTicketExit(plate);
+    }
+    public int vehicleEntry (){
+        return model.vehicleEntry();
     }
 
     public boolean verifyRol(String user){
@@ -42,6 +46,9 @@ public class Presenter {
             System.out.println("Creo instacia presenter!");
         }
         return presenter;
+    }
+    public double getTotalPaymentsByDate(Date fechaSeleccionada) {
+        return model.getTotalPaymentsByDate(fechaSeleccionada);
     }
     
     

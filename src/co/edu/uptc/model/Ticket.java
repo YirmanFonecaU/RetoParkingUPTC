@@ -2,8 +2,6 @@ package co.edu.uptc.model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 
 public class Ticket {
     private int ticketID;
@@ -11,14 +9,18 @@ public class Ticket {
     private LocalDateTime entryDateTime;
     private LocalDateTime  exitDateTime;
     private double totalPay;
+    private LocalDateTime date;
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     private static final double RATE_PER_MINUTE = 100.0;
    
     
-    public Ticket(int ticketID, Vehicle vehicle, LocalDateTime entryDateTime){
+    public Ticket(int ticketID, Vehicle vehicle, LocalDateTime entryDateTime, LocalDateTime date){
         this.ticketID= ticketID;
         this.vehicle= vehicle;
         this.entryDateTime=entryDateTime;
+        this.date=date;
+
+        
     }
     
     public void checkOut(LocalDateTime exitDateTime){
@@ -89,6 +91,14 @@ public class Ticket {
 
     public void setTotalPay(double totalPay) {
         this.totalPay = totalPay;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
     
    

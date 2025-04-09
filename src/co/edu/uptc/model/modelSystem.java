@@ -90,7 +90,7 @@ public class ModelSystem {
         receptionistList.add(new Receptionist(document, userName, password, email, phone));
     }
     
-    public boolean validatePlate(String plate, VehicleType type) {
+    public boolean validatePlate(String plate) {
         if (plate == null || plate.trim().isEmpty()) {
             return false;
         }

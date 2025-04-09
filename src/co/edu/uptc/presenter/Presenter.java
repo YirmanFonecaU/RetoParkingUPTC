@@ -41,7 +41,7 @@ public class Presenter {
     }
 
     public boolean validatePlate(String plate) {
-        return model.ValidPlate(plate);
+        return model.validatePlate(plate);
     }
 
     public boolean vehicleParked(String plate) {

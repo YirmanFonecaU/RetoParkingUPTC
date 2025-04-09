@@ -122,4 +122,10 @@ public class Parking {
     public Map<VehicleType, Integer> getTotalSpacesByType() {
         return totalSpacesByType;
     }
+
+    public int getNextTicketId() {
+        return nextTicketId;
+    }
+
+    
 }

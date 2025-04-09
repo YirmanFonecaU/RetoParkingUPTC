@@ -13,8 +13,8 @@ public class Ticket {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     private static final double RATE_PER_MINUTE = 100.0;
    
-    
-    public Ticket(int ticketID, Vehicle vehicle, LocalDateTime entryDateTime, LocalDateTime date){
+    public Ticket(){}
+    public Ticket(int ticketID, Vehicle vehicle, LocalDateTime entryDateTime){
         this.ticketID= ticketID;
         this.vehicle= vehicle;
         this.entryDateTime=entryDateTime;
@@ -25,9 +25,9 @@ public class Ticket {
     
     public void checkOut(LocalDateTime exitDateTime){
         this.exitDateTime= exitDateTime;
-        this.totalPay= calculateTotalPay();
+        this.totalPay= calculateTotalPay(exitDateTime);
     }
-    public double calculateTotalPay() {
+    public double calculateTotalPay(LocalDateTime dateTime) {
         if (exitDateTime == null) {
             return 0;
         }

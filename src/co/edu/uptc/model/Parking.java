@@ -31,12 +31,13 @@ public class Parking {
         this.address = address;
         this.totalSpacesByType = new HashMap<>();
         this.spaces = spaces;
-        this.totalSpacesByType.put(VehicleType.CAR, 7);
-        this.totalSpacesByType.put(VehicleType.MOTORCYCLE, 7);
+        this.totalSpacesByType.put(VehicleType.CAR, spaces/2);
+        this.totalSpacesByType.put(VehicleType.MOTORCYCLE, spaces-(spaces/2));
         this.parkedVehicles = new ArrayList<>();
         this.allTickets = new ArrayList<>();
         this.nextTicketId = 1000;
     }
+    
     
     public int getTotalSpaces() {
         return totalSpacesByType.values().stream().mapToInt(Integer::intValue).sum();

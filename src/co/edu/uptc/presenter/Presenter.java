@@ -1,7 +1,9 @@
 package co.edu.uptc.presenter;
 
-import co.edu.uptc.model.ModelSystem;
 import java.util.Date;
+
+import co.edu.uptc.model.ModelSystem;
+import co.edu.uptc.model.Ticket;
 
 public class Presenter {
 
@@ -43,8 +45,8 @@ public class Presenter {
         return model.getNextTickedId();
     }
 
-    public void createTicked(String plate, String type) {
-        model.createTicket(plate, type);
+    public Ticket createTicked(String plate, String type) {
+        return model.createTicket(plate, type);
     }
 
     public boolean validatePlate(String plate) {
@@ -62,7 +64,15 @@ public class Presenter {
     public int minorSpaces(String type) {
         return model.minorSpaces(type);
     }
-
+    public Ticket exitVehicleTicket(String plate){
+        return model.registerVehicleExit(plate);
+    }
+public double change(double totalPay, double userPay){
+    return model.change(totalPay, userPay);
+}
+public void generateReport(){
+    model.generateReceptionistReport();
+}
     public void changeCrededencialReceptionist(int idDoucment, String newPassword) {
         model.changeCrededencialReceptionist(idDoucment, newPassword);
     }

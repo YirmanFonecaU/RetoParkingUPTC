@@ -1,5 +1,7 @@
 package co.edu.uptc.view;
 
+import co.edu.uptc.model.Ticket;
+import co.edu.uptc.presenter.Presenter;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -15,10 +17,11 @@ import javax.swing.JTextField;
 public class ExitVehicleFrame extends JFrame{
     private JTextField txtPlaca;
     private JButton btnConfirmar;
+    private Presenter presenter;
 
     public ExitVehicleFrame() {
         super("Salida de Vehículo");
-
+        presenter= Presenter.getInstance();
         setSize(350, 180);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -39,16 +42,59 @@ public class ExitVehicleFrame extends JFrame{
         btnConfirmar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String placa = txtPlaca.getText();
-
+                String placa = txtPlaca.getText().trim().toUpperCase();
+        
                 if (placa.isEmpty()) {
                     JOptionPane.showMessageDialog(ExitVehicleFrame.this, "Por favor ingrese la placa.");
-                } else {
-                    JOptionPane.showMessageDialog(ExitVehicleFrame.this, "Salida registrada para placa: " + placa);
-                    dispose(); // cerrar ventana luego de confirmar
+                    return;
+                }
+        
+                if (!presenter.vehicleParked(placa)) {
+                    JOptionPane.showMessageDialog(ExitVehicleFrame.this, "Placa no encontrada", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+        
+                Ticket ticket = presenter.exitVehicleTicket(placa);
+                String input = JOptionPane.showInputDialog(
+                    ExitVehicleFrame.this,
+                    "Su valor a pagar es: $" + ticket.getTotalPay() + "\nIngrese el monto recibido",
+                    "Pago",
+                    JOptionPane.QUESTION_MESSAGE
+                );
+        
+                if (input == null) {
+                    // El usuario canceló el diálogo
+                    return;
+                }
+        
+                try {
+                    double pago = Double.parseDouble(input);
+        
+                    if (pago < ticket.getTotalPay()) {
+                        JOptionPane.showMessageDialog(
+                            ExitVehicleFrame.this,
+                            "Monto inferior al solicitado",
+                            "Advertencia",
+                            JOptionPane.WARNING_MESSAGE
+                        );
+                        return;
+                    }
+        
+                    double cambio = presenter.change(pago, ticket.getTotalPay());
+                    new ExitTicketFromFrame(ticket, ticket.getTotalPay(), pago, cambio);
+                    dispose(); // Cierra la ventana actual
+        
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(
+                        ExitVehicleFrame.this,
+                        "Ingrese un valor numérico válido",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                    );
                 }
             }
         });
+        
 
         add(mainPanel, BorderLayout.CENTER);
         add(btnConfirmar, BorderLayout.SOUTH);

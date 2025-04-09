@@ -1,11 +1,19 @@
 package co.edu.uptc.model;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 public class Receptionist  extends User{
     private double income;
     private int totalVehiclesEntered;
+    private double totalIngress;
+    private int totalVehicles;
+    private List<ReceptionistReport> report;
     public Receptionist(){
         income=0;
         totalVehiclesEntered=0;
+        totalIngress=0;
+      totalVehicles=0;  
     }
 
     public Receptionist(int id, String userName, String password, String direcction, String email){
@@ -17,6 +25,13 @@ public class Receptionist  extends User{
         this.direction = direction;
         this.email = email; 
         
+        
+    }
+    public ReceptionistReport generateReport(){
+        User receptionist= new User();
+        ReceptionistReport reportRecep= new ReceptionistReport(receptionist, totalVehicles, totalIngress,LocalDateTime.now());
+        report.add(reportRecep);
+        return reportRecep;
     }
     public int getId() {
         return id;    
@@ -71,6 +86,24 @@ public class Receptionist  extends User{
     public String toString() {
         return "Receptionist [income=" + income + ", totalVehiclesEntered=" + totalVehiclesEntered + ", account="
                  + "]";
+    }
+    public double getTotalIngress() {
+        return totalIngress;
+    }
+    public void setTotalIngress(double totalIngress) {
+        this.totalIngress = totalIngress;
+    }
+    public int getTotalVehicles() {
+        return totalVehicles;
+    }
+    public void setTotalVehicles(int totalVehicles) {
+        this.totalVehicles = totalVehicles;
+    }
+    public List<ReceptionistReport> getReport() {
+        return report;
+    }
+    public void setReport(List<ReceptionistReport> report) {
+        this.report = report;
     }
     
     

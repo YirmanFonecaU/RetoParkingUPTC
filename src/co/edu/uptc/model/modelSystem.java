@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
-
 import javax.swing.JOptionPane;
 
 public class ModelSystem {
@@ -35,7 +34,6 @@ public class ModelSystem {
         account.put("key", "value");
         receptionist = new Receptionist();
         printedtickets = new ArrayList<Ticket>();
-        
         currentParking = new Parking("ParkingUPTC", "Universidad Pedagógica y Tecnológica de Colombia", 20);
         parkingList.add(currentParking);
         
@@ -81,14 +79,15 @@ public class ModelSystem {
             }
         }
     }
-    public void createTicket(String plate, String type) {
+    public Ticket createTicket(String plate, String type) {
         VehicleType typeVehicle = VehicleType.fromString(type);
         Ticket ticket = registerVehicleEntry(plate, typeVehicle);
         if (ticket != null) {
             System.out.println("tcket creado");
             printedtickets.add(ticket); 
+            receptionist.setTotalVehicles(receptionist.getTotalVehicles()+1);
         }
-       
+        return ticket;
     }
 
     public void addReceptionist(int document, String name, String lastName, String email, String phone) {
@@ -188,12 +187,20 @@ public class ModelSystem {
         VehicleType typeVehicle = VehicleType.fromString(type);
         return currentParking.getAvailableSpaces(typeVehicle);
     }
-
-    
     
     public Ticket registerVehicleExit(String plate) {
+
         return currentParking.processExit(plate);
     }
+    public double change(double totalPay, double userPay ){
+        receptionist.setTotalIngress(receptionist.getTotalIngress()+totalPay);
+        return userPay-totalPay;
+    }
+    public void generateReceptionistReport(){
+        receptionist.generateReport();
+    }
+    
+   
     
     public void setSpaces(VehicleType type, int spaces) {
         currentParking.setSpaces(type, spaces);
@@ -220,6 +227,7 @@ public class ModelSystem {
     }
 
     public void setReceptionistTurn(String receptionistTurn) {
+        receptionist.setUserName(receptionistTurn);
         this.receptionistTurn = receptionistTurn;
     }
 

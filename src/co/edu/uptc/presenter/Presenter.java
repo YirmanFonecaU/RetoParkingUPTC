@@ -59,7 +59,6 @@ public class Presenter {
     public void changeCrededencialReceptionist(int idDoucment, String newPassword) {
         model.changeCrededencialReceptionist(idDoucment, newPassword);
     }
-
     public static Presenter getInstance() {
         if (presenter == null) {
             presenter = new Presenter();

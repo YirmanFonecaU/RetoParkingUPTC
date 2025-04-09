@@ -1,7 +1,5 @@
 package co.edu.uptc.model;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +30,7 @@ public class ModelSystem {
         receptionist = new Receptionist();
         printedtickets = new ArrayList<Ticket>();
         
-        currentParking = new Parking("ParkingUPTC", "Universidad Pedagógica y Tecnológica de Colombia");
+        currentParking = new Parking("ParkingUPTC", "Universidad Pedagógica y Tecnológica de Colombia", 20);
         parkingList.add(currentParking);
         
         isLoggendIn = false;
@@ -86,12 +84,14 @@ public class ModelSystem {
        
     }
 
-    public void addReceptionist(Receptionist receptionist) {
-        receptionistList.add(receptionist);
+    public void addReceptionist(int document, String name, String lastName, String email, String phone) {
+        String password = "" ;
+        String userName = name + " "+ lastName;
+        receptionistList.add(new Receptionist(document, userName, password, email, phone));
     }
     
-    public boolean ValidPlate(String plate) {
-        if (plate == null) {
+    public boolean validatePlate(String plate, VehicleType type) {
+        if (plate == null || plate.trim().isEmpty()) {
             return false;
         }
         return PLATE_PATTERN.matcher(plate.toUpperCase()).matches();

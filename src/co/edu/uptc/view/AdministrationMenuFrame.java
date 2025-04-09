@@ -4,6 +4,7 @@ import co.edu.uptc.presenter.Presenter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.*;
@@ -442,6 +443,7 @@ private JPanel generateReportPanel() {
     
     JLabel calendarIcon = new JLabel("📅");
     generateButton = new JButton("Generar");
+    generateButton.addActionListener(this);
     Calendar calendar = Calendar.getInstance();
 
     Date inicio = calendar.getTime();
@@ -477,18 +479,25 @@ private JPanel generateReportPanel() {
         }
     });
     panelReport.add(backLabel, BorderLayout.NORTH);
-    
-
     return panelReport;
 }
 
-public void panelReport2(){
+public void panelReport2() {
     Date fechaSeleccionada = (Date) fecha.getValue();
     totalIngresosL = presenter.getTotalPaymentsByDate(fechaSeleccionada);
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    String fechaFormateada = sdf.format(fechaSeleccionada);
+
     JPanel reportTotalIngresosPanel = new JPanel();
     reportTotalIngresosPanel.setLayout(new BoxLayout(reportTotalIngresosPanel, BoxLayout.Y_AXIS));
     reportTotalIngresosPanel.setBorder(BorderFactory.createTitledBorder("Reporte de ingresos"));
-    JLabel itemLabel = new JLabel("Fecha: " + fecha +"\n"+ "Total ingresos: $" + totalIngresosL + "\n"+"Total de vehículos ingresados: "+ presenter.vehicleEntry() );
+
+    JLabel itemLabel = new JLabel("<html>" +
+        "Fecha: " + fechaFormateada + "<br>" +
+        "Total ingresos: $" + totalIngresosL + "<br>" +
+        "Total de vehículos ingresados: " + presenter.vehicleEntry() +
+        "</html>");
+
     reportTotalIngresosPanel.add(itemLabel);
     panelReport.add(reportTotalIngresosPanel, BorderLayout.CENTER);
 }
@@ -513,6 +522,7 @@ public void panelReport2(){
         JOptionPane.showMessageDialog(registerButtonParking, "El parqueadero ha sido registrado Exitosamente", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
     }
     if(e.getSource() == generateButton){
+        generateReportPanel();
         panelReport2();
     }
     if(e.getSource() == closeSessionLabel){

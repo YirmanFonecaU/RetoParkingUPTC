@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import javax.swing.*;
 public class AdministrationMenuFrame extends JFrame implements ActionListener {  
     private JButton addParkingButton;
@@ -516,9 +517,7 @@ JTable table = new JTable(data, columnNames);
 JScrollPane scrollPane = new JScrollPane(table);
 reportTotalIngresosPanel.add(scrollPane);
 
-JPanel panel = new JPanel(new BorderLayout());
-panel.setBorder(BorderFactory.createTitledBorder("Reporte de recepcionistas"));
-panel.add(scrollPane, BorderLayout.CENTER);
+
     panelReport.add(reportTotalIngresosPanel, BorderLayout.CENTER);
 }
 

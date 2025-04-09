@@ -445,7 +445,6 @@ private JPanel generateReportPanel() {
         Date fechaPosterior = calendar.getTime();
 
         SpinnerModel fechaModel = new SpinnerDateModel(inicio, fechaAnterior, fechaPosterior, Calendar.YEAR);
-        SpinnerModel horaModel = new SpinnerDateModel(inicio, fechaAnterior, fechaPosterior, Calendar.HOUR);
 
         fecha.setModel(fechaModel);
         fecha.setEditor(new JSpinner.DateEditor(fecha, "dd/MM/yyyy"));
@@ -489,6 +488,7 @@ private JPanel generateReportPanel() {
         generateReportPanel();
     }
     if(e.getSource() == registerButtonParking){
+        presenter.createParking(nameField.getText(), addressField.getText(), Integer.parseInt(spacesField.getText()));
         JOptionPane.showMessageDialog(registerButtonParking, "El parqueadero ha sido registrado Exitosamente", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
     }
     if(e.getSource() == closeSessionLabel){

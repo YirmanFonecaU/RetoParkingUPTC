@@ -28,6 +28,10 @@ public class Presenter {
     public void changeCrededencialReceptionist(int idDoucment, String newPassword) {
         model.changeCrededencialReceptionist(idDoucment, newPassword);
     }
+
+    public void createParking(String name, String address, int spaces) {
+        model.addParking(name, address, spaces);
+    }
     public static Presenter getInstance() {
         if (presenter == null) {
             presenter = new Presenter();

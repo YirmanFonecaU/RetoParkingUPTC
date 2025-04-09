@@ -8,18 +8,21 @@ import java.util.Map;
 
 public class Parking {
     private String name;
-    private String direction;
-     private Map<VehicleType, Integer> totalSpacesByType;
+    private String address;
+    private int spaces;
+    private Map<VehicleType, Integer> totalSpacesByType;
     private List<Vehicle> parkedVehicles;
     private List<Ticket> allTickets;
     private List<Ticket> ResiveTickets;
+   
+
     private int nextTicketId;
 
-    public Parking(String name, String location) {
+    public Parking(String name, String address, int spaces) {
         this.name = name;
-        this.direction = direction;
+        this.address = address;
         this.totalSpacesByType = new HashMap<>();
-        
+        this.spaces = spaces;
         this.totalSpacesByType.put(VehicleType.CAR, 7);
         this.totalSpacesByType.put(VehicleType.MOTORCYCLE, 3);
         this.parkedVehicles = new ArrayList<>();
@@ -91,13 +94,12 @@ public class Parking {
         totalSpacesByType.put(type, spaces);
     }
 
-    // Getters and setters
     public String getName() {
         return name;
     }
 
-    public String getdirection() {
-        return direction;
+    public String getAddress() {
+        return address;
     }
     
     public List<Vehicle> getParkedVehicles() {
@@ -110,5 +112,9 @@ public class Parking {
     
     public Map<VehicleType, Integer> getTotalSpacesByType() {
         return totalSpacesByType;
+    }
+    @Override
+    public String toString() {
+        return "Parking [name=" + name + ", address=" + address + ", spaces=" + spaces + "]";
     }
 }

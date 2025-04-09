@@ -19,8 +19,12 @@ public class Ticket {
         this.vehicle= vehicle;
         this.entryDateTime=entryDateTime;
         this.date=date;
-
-        
+    }
+    public Ticket(int ticketID, Vehicle vehicle, LocalDateTime entryDateTime, LocalDateTime date){
+        this.ticketID= ticketID;
+        this.vehicle= vehicle;
+        this.entryDateTime=entryDateTime;
+        this.date=date;
     }
     
     public void checkOut(LocalDateTime exitDateTime){

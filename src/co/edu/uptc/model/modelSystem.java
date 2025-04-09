@@ -72,6 +72,14 @@ public class ModelSystem {
         return validate;
     }
 
+    public List<ReceptionistReport> getAllReceptionistReports() {
+        List<ReceptionistReport> allReports = new ArrayList<>();
+        for (Receptionist r : receptionistList) {
+            allReports.addAll(r.getReport());
+        }
+        return allReports;
+    }
+
     public void changeCrededencialReceptionist(int idDoucment, String newPassword) {
         for (Receptionist receptionist : receptionistList) {
             if (receptionist.getId() == idDoucment) {
@@ -201,7 +209,6 @@ public class ModelSystem {
     }
     
    
-    
     public void setSpaces(VehicleType type, int spaces) {
         currentParking.setSpaces(type, spaces);
     }
@@ -210,7 +217,6 @@ public class ModelSystem {
         return currentParking.getAllTickets();
     }
 
-    
     public Ticket findActiveTicket(String plate) {
         return currentParking.findActiveTicket(plate);
     }

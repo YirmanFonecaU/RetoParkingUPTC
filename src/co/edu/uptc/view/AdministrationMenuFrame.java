@@ -1,10 +1,11 @@
 package co.edu.uptc.view;
-
+import co.edu.uptc.model.ReceptionistReport;
 import co.edu.uptc.presenter.Presenter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.*;
@@ -495,10 +496,29 @@ public void panelReport2() {
     JLabel itemLabel = new JLabel("<html>" +
         "Fecha: " + fechaFormateada + "<br>" +
         "Total ingresos: $" + totalIngresosL + "<br>" +
-        "Total de vehículos ingresados: " + presenter.vehicleEntry() +
-        "</html>");
-
+        "Total de vehículos ingresados: " + presenter.vehicleEntry());
     reportTotalIngresosPanel.add(itemLabel);
+    String[] columnNames = {"Recepcionista", "Vehículos", "Ingresos", "Fecha"};
+    List<ReceptionistReport> reportList = presenter.getReceptionistReportList();
+
+    Object[][] data = new Object[reportList.size()][4];
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    for (int i = 0; i < reportList.size(); i++) {
+        ReceptionistReport report = reportList.get(i);
+        data[i][0] = report.getReceptionist();
+        data[i][1] = report.getTotalVehicles();
+        data[i][2] = "$" + report.getTotalIngress();
+        data[i][3] = report.getEntryDateTime().format(formatter);
+    }
+
+JTable table = new JTable(data, columnNames);
+JScrollPane scrollPane = new JScrollPane(table);
+reportTotalIngresosPanel.add(scrollPane);
+
+JPanel panel = new JPanel(new BorderLayout());
+panel.setBorder(BorderFactory.createTitledBorder("Reporte de recepcionistas"));
+panel.add(scrollPane, BorderLayout.CENTER);
     panelReport.add(reportTotalIngresosPanel, BorderLayout.CENTER);
 }
 

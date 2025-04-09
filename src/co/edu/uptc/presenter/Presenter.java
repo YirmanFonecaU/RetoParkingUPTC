@@ -1,9 +1,10 @@
 package co.edu.uptc.presenter;
 
-import java.util.Date;
-
 import co.edu.uptc.model.ModelSystem;
+import co.edu.uptc.model.ReceptionistReport;
 import co.edu.uptc.model.Ticket;
+import java.util.Date;
+import java.util.List;
 
 public class Presenter {
 
@@ -36,7 +37,7 @@ public class Presenter {
     public void setReceptionistTurn(String user) {
         model.setReceptionistTurn(user);
     }
-
+   
     public String getReceptionistTurn() {
         return model.getReceptionistTurn();
     }
@@ -67,12 +68,15 @@ public class Presenter {
     public Ticket exitVehicleTicket(String plate){
         return model.registerVehicleExit(plate);
     }
-public double change(double totalPay, double userPay){
-    return model.change(totalPay, userPay);
-}
-public void generateReport(){
-    model.generateReceptionistReport();
-}
+    public List<ReceptionistReport> getReceptionistReportList(){
+        return model.getAllReceptionistReports();
+    }
+    public double change(double totalPay, double userPay){
+        return model.change(totalPay, userPay);
+    }
+    public void generateReport(){
+        model.generateReceptionistReport();
+    }
     public void changeCrededencialReceptionist(int idDoucment, String newPassword) {
         model.changeCrededencialReceptionist(idDoucment, newPassword);
     }

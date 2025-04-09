@@ -116,7 +116,7 @@ public class ExitTicketFromFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
        if (e.getSource()== printBotton) {
        String recibo= presenter.exitVehicleAndPrintTicket(ticket.getVehicle().getPlate());
-       JOptionPane.showMessageDialog(this, recibo,JOptionPane.INFORMATION_MESSAGE);
+       JOptionPane.showMessageDialog(this, recibo,"Recibo Generado",JOptionPane.INFORMATION_MESSAGE);
        dispose();
        }
        else if (e.getSource()== finishButton) {

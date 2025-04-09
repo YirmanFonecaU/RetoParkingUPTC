@@ -61,7 +61,7 @@ public class ExitTicketFromFrame extends JFrame implements ActionListener {
         titleLabel.setFont(new Font("Arial",Font.BOLD,18));
 
         plateLabel = new JLabel("placa" + ticket.getVehicle().getPlate());
-        amountLabel = new JLabel("Valor pagado: "+ String.format("%.of", amountPaid));
+        amountLabel = new JLabel("Valor pagado: "+ String.format("%.0f", amountPaid));
         paymentMethodLabel = new JLabel("Forma de pago: " + paymentMethod);
         stateLabel = new JLabel("Estado: Aprobado");
         referenceLabel = new JLabel("Referencia: " + ticket.getTicketID());
@@ -73,13 +73,16 @@ public class ExitTicketFromFrame extends JFrame implements ActionListener {
         printBotton = new JButton("Imprimir");
         printBotton.addActionListener(this);
 
+        printBotton = new JButton("Finalizar");
+        printBotton.addActionListener(this);
+
     }
 
     private void setupLayout(){
         setLayout(new BorderLayout(10,10));
 
         JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        titlePanel.add(titlePanel);
+        titlePanel.add(titleLabel);
         add(titlePanel, BorderLayout.NORTH);
 
         JPanel contentPanel = new JPanel();
@@ -112,9 +115,12 @@ public class ExitTicketFromFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
        if (e.getSource()== printBotton) {
-        JOptionPane.showMessageDialog(this,"tickect Impreso con exito", "Impresión", JOptionPane.INFORMATION_MESSAGE);
-       }else if(e.getSource()== finishButton){
-        goToReceptionist();
+       String recibo= presenter.exitVehicleAndPrintTicket(ticket.getVehicle().getPlate());
+       JOptionPane.showMessageDialog(this, recibo,JOptionPane.INFORMATION_MESSAGE);
+       dispose();
+       }
+       else if (e.getSource()== finishButton) {
+           goToReceptionist();
        }
     }
     private void goToReceptionist(){

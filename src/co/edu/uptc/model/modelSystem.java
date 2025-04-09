@@ -15,6 +15,7 @@ public class ModelSystem {
     private Parking currentParking;
     private boolean isLoggendIn;
     private String receptionistTurn;
+    private List<Ticket> printedtickets;
 
     private static final Pattern CAR_PLATE_PATTERN = Pattern.compile("^[A-Z]{3}\\d{3}$");
     private static final Pattern MOTORCYCLE_PLATE_PATTERN = Pattern.compile("^[A-Z]{3}\\d{2}[A-Z]$");
@@ -27,6 +28,7 @@ public class ModelSystem {
         account.put("key", "value");
         receptionist = new Receptionist();
         account= new HashMap<String, String>();
+        printedtickets = new ArrayList<Ticket>();
         
         currentParking = new Parking("ParkingUPTC", "Universidad Pedagógica y Tecnológica de Colombia", 20);
         parkingList.add(currentParking);
@@ -34,6 +36,20 @@ public class ModelSystem {
         isLoggendIn = false;
     }
     
+    public void savePrintedTicket(Ticket ticket){
+        printedtickets.add(ticket);
+    }
+    public List<Ticket> getPrintedTickets(){
+        return printedtickets;
+    }
+    public String processAndSaveTicketExit(String plate){
+        Ticket ticket = registerVehicleExit(plate);
+        if(ticket!=null){
+            savePrintedTicket(ticket);
+            return ticket.printTicket();
+        }
+        return JOptionPane.showInputDialog("No se encontro un ticket activo para la placa " + plate);
+    }
     public boolean validateRol(String user){
         boolean validate= false;
         if(user.equals("admin"))

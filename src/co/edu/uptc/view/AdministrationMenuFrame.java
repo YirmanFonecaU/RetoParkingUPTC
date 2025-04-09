@@ -23,6 +23,8 @@ public class AdministrationMenuFrame extends JFrame implements ActionListener {
     private JPanel changePasswordPanel;
     private JPanel generateReportPanel;
     private Presenter presenter;
+    private JSpinner fecha;
+    private JPanel panelReport;
     private JLabel nameLabel;
     private JTextField nameField ;
     private JLabel addressLabel;
@@ -39,10 +41,14 @@ public class AdministrationMenuFrame extends JFrame implements ActionListener {
     private JTextField lastNameFieldRec;
     private JLabel numberPhoneLabelRec;
     private JTextField numberPhoneFieldRec;
+    private JButton generateButton;
     private JLabel emailLabelRec;
     private JTextField emailFieldRec;
     private JTextField newPasswordField;
     private JTextField repeatPasswordField;
+    private double totalIngresosL;
+    private JLabel dateLabel;
+    private JLabel totalVehicleIngrLabel;
 
     public AdministrationMenuFrame() {
         super("Menú Administración");
@@ -51,11 +57,13 @@ public class AdministrationMenuFrame extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         presenter = Presenter.getInstance();
         setLayout(new BorderLayout());
+        fecha = new JSpinner();
         southPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         closeSession();
         centerPanel = new JPanel(new GridLayout(1, 2)); 
         leftCenterPanel();
         rightCenterPanel(); 
+        
         getContentPane().add(southPanel, BorderLayout.NORTH);
         getContentPane().add(centerPanel, BorderLayout.CENTER);
 
@@ -421,19 +429,19 @@ private JPanel changePasswordPanel() {
     return mainPanel;
 }
 private JPanel generateReportPanel() {
-    JPanel panel = new JPanel(new BorderLayout());
+    panelReport = new JPanel(new BorderLayout());
     this.setSize(800, 500);
     getContentPane().removeAll();
-    getContentPane().add(panel);
+    getContentPane().add(panelReport);
     getContentPane().revalidate();
     getContentPane().repaint();
 
     JPanel center = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 20));
 
     JLabel label = new JLabel("Digite la fecha para la generación del reporte:");
-    JSpinner fecha = new JSpinner();
+    
     JLabel calendarIcon = new JLabel("📅");
-    JButton generateButton = new JButton("Generar");
+    generateButton = new JButton("Generar");
     Calendar calendar = Calendar.getInstance();
 
     Date inicio = calendar.getTime();
@@ -445,7 +453,6 @@ private JPanel generateReportPanel() {
         Date fechaPosterior = calendar.getTime();
 
         SpinnerModel fechaModel = new SpinnerDateModel(inicio, fechaAnterior, fechaPosterior, Calendar.YEAR);
-
         fecha.setModel(fechaModel);
         fecha.setEditor(new JSpinner.DateEditor(fecha, "dd/MM/yyyy"));
 
@@ -454,7 +461,7 @@ private JPanel generateReportPanel() {
     center.add(calendarIcon);
     center.add(generateButton);
 
-    panel.add(center, BorderLayout.CENTER);
+    panelReport.add(center, BorderLayout.SOUTH);
     JLabel backLabel = new JLabel("← Volver al Menú");
     backLabel.setFont(new Font("Arial", Font.PLAIN, 14));
     backLabel.setForeground(Color.BLUE);
@@ -469,9 +476,23 @@ private JPanel generateReportPanel() {
             getContentPane().repaint();
         }
     });
-    panel.add(backLabel, BorderLayout.NORTH);
-    return panel;
+    panelReport.add(backLabel, BorderLayout.NORTH);
+    
+
+    return panelReport;
 }
+
+public void panelReport2(){
+    Date fechaSeleccionada = (Date) fecha.getValue();
+    totalIngresosL = presenter.getTotalPaymentsByDate(fechaSeleccionada);
+    JPanel reportTotalIngresosPanel = new JPanel();
+    reportTotalIngresosPanel.setLayout(new BoxLayout(reportTotalIngresosPanel, BoxLayout.Y_AXIS));
+    reportTotalIngresosPanel.setBorder(BorderFactory.createTitledBorder("Reporte de ingresos"));
+    JLabel itemLabel = new JLabel("Fecha: " + fecha +"\n"+ "Total ingresos: $" + totalIngresosL + "\n"+"Total de vehículos ingresados: "+ presenter.vehicleEntry() );
+    reportTotalIngresosPanel.add(itemLabel);
+    panelReport.add(reportTotalIngresosPanel, BorderLayout.CENTER);
+}
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -490,6 +511,9 @@ private JPanel generateReportPanel() {
     if(e.getSource() == registerButtonParking){
         presenter.createParking(nameField.getText(), addressField.getText(), Integer.parseInt(spacesField.getText()));
         JOptionPane.showMessageDialog(registerButtonParking, "El parqueadero ha sido registrado Exitosamente", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+    }
+    if(e.getSource() == generateButton){
+        panelReport2();
     }
     if(e.getSource() == closeSessionLabel){
         dispose();

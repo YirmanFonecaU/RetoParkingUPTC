@@ -1,5 +1,7 @@
 package co.edu.uptc.presenter;
 
+import java.util.Date;
+
 import co.edu.uptc.model.ModelSystem;
 import co.edu.uptc.model.Ticket;
 
@@ -16,9 +18,15 @@ public class Presenter {
     public String exitVehicleAndPrintTicket(String plate) {
         return model.processAndSaveTicketExit(plate);
     }
+    public int vehicleEntry (){
+        return model.vehicleEntry();
+    }
 
     public boolean verifyRol(String user) {
         return model.validateRol(user);
+    }
+    public void createParking(String name, String address, int spaces){
+        model.createParking(name, address, spaces);
     }
 
     public boolean logIn(String user, String password) {
@@ -75,5 +83,10 @@ public void generateReport(){
         }
         return presenter;
     }
+    public double getTotalPaymentsByDate(Date fechaSeleccionada) {
+        return model.getTotalPaymentsByDate(fechaSeleccionada);
+    }
+    
+    
 
 }

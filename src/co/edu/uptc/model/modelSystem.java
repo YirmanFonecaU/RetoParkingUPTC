@@ -1,6 +1,9 @@
 package co.edu.uptc.model;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +20,9 @@ public class ModelSystem {
     private boolean isLoggendIn;
     private String receptionistTurn;
     private List<Ticket> printedtickets;
+    private int totalVehicle;
+    private double totalpayments;
+    
 
     private static final Pattern PLATE_PATTERN = Pattern.compile("^[A-Z]{3}[A-Z0-9]{3}$");
 
@@ -46,7 +52,8 @@ public class ModelSystem {
             savePrintedTicket(ticket);
             return ticket.printExitTicket();
         }
-        return JOptionPane.showInputDialog(this," No se encontro un ticket activo para la placa " + plate);
+        return JOptionPane.showInputDialog("No se encontro un ticket activo para la placa " + plate, "Error");
+        
     }
     public boolean validateRol(String user){
         boolean validate= false;
@@ -107,6 +114,9 @@ public class ModelSystem {
     public boolean isLoggedIn() {
         return isLoggendIn;
     }
+    public void createParking(String name, String address, int spaces){
+        currentParking = new Parking(name, address, spaces);
+    }
     public Map<VehicleType, Integer> getAvailabilityByType() {
         return currentParking.getAvailabilityByType();
     }
@@ -132,6 +142,31 @@ public class ModelSystem {
     
         Vehicle vehicle = new Vehicle(plate, type);
         return currentParking.createEntryTicket(vehicle);
+    }
+    public List<Ticket> getTicketsByDate(Date inputDate) {
+        List<Ticket> filtered = new ArrayList<>();
+        LocalDate selectedDate = inputDate.toInstant()
+                                          .atZone(ZoneId.systemDefault())
+                                          .toLocalDate();
+    
+        for (Ticket ticket : getAllTickets()) {
+            if (ticket.getDate().toLocalDate().equals(selectedDate)) {
+                filtered.add(ticket);
+            }
+        }
+        return filtered;
+    }
+        public double getTotalPaymentsByDate(Date targetDate) {
+            List<Ticket> filtered = getTicketsByDate(targetDate);
+            totalpayments =0;
+            for (Ticket ticket : filtered) {
+                totalpayments += ticket.getTotalPay();
+            }
+            return totalpayments;
+        }
+
+    public int vehicleEntry(){
+        return currentParking.getVehicleEntry();
     }
     public boolean vehicleParked(String plate){
         if(currentParking.isVehicleParked(plate)){
@@ -174,6 +209,7 @@ public class ModelSystem {
     public List<Ticket> getAllTickets() {
         return currentParking.getAllTickets();
     }
+
     
     public Ticket findActiveTicket(String plate) {
         return currentParking.findActiveTicket(plate);
@@ -194,4 +230,5 @@ public class ModelSystem {
         receptionist.setUserName(receptionistTurn);
         this.receptionistTurn = receptionistTurn;
     }
+
 }

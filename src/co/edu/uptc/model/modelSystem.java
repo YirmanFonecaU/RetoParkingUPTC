@@ -25,8 +25,7 @@ public class ModelSystem {
     private double totalpayments;
     
 
-    private static final Pattern CAR_PLATE_PATTERN = Pattern.compile("^[A-Z]{3}\\d{3}$");
-    private static final Pattern MOTORCYCLE_PLATE_PATTERN = Pattern.compile("^[A-Z]{3}\\d{2}[A-Z]$");
+    private static final Pattern PLATE_PATTERN = Pattern.compile("^[A-Z]{3}[A-Z0-9]{3}$");
 
     public ModelSystem() {
         parkingList = new ArrayList<Parking>();
@@ -35,7 +34,6 @@ public class ModelSystem {
         account.put("admin", "password");
         account.put("key", "value");
         receptionist = new Receptionist();
-        account= new HashMap<String, String>();
         printedtickets = new ArrayList<Ticket>();
         
         currentParking = new Parking("ParkingUPTC", "Universidad Pedagógica y Tecnológica de Colombia", 20);
@@ -54,9 +52,10 @@ public class ModelSystem {
         Ticket ticket = registerVehicleExit(plate);
         if(ticket!=null){
             savePrintedTicket(ticket);
-            return ticket.printTicket();
+            return ticket.printExitTicket();
         }
         return JOptionPane.showInputDialog("No se encontro un ticket activo para la placa " + plate, "Error");
+        
     }
     public boolean validateRol(String user){
         boolean validate= false;
@@ -82,14 +81,14 @@ public class ModelSystem {
             }
         }
     }
-    public void createTicket(String plate, String type){
-       VehicleType typeVehicle= VehicleType.fromString(type);
-        Vehicle vehicle= new Vehicle(plate, typeVehicle);
-        addTicket(vehicle);
-
-    }
-    private void addTicket( Vehicle vehicle){
-        currentParking.createEntryTicket(vehicle);
+    public void createTicket(String plate, String type) {
+        VehicleType typeVehicle = VehicleType.fromString(type);
+        Ticket ticket = registerVehicleEntry(plate, typeVehicle);
+        if (ticket != null) {
+            System.out.println("tcket creado");
+            printedtickets.add(ticket); 
+        }
+       
     }
 
     public void addReceptionist(int document, String name, String lastName, String email, String phone) {
@@ -97,23 +96,15 @@ public class ModelSystem {
         String userName = name + " "+ lastName;
         receptionistList.add(new Receptionist(document, userName, password, email, phone));
     }
-
-    public void addParking(String name, String address, int spaces) {
-        parkingList.add(new Parking(name, address, spaces));
-       
-    }
-    public boolean validatePlate(String plate, VehicleType type) {
+    
+    public boolean validatePlate(String plate) {
         if (plate == null || plate.trim().isEmpty()) {
             return false;
         }
-        
-        plate = plate.toUpperCase().trim();
-        
-        if (type == VehicleType.CAR) {
-            return CAR_PLATE_PATTERN.matcher(plate).matches();
-        } else {
-            return MOTORCYCLE_PLATE_PATTERN.matcher(plate).matches();
-        }
+        return PLATE_PATTERN.matcher(plate.toUpperCase()).matches();
+    }
+    public int getNextTickedId(){
+        return currentParking.getNextTicketId();
     }
     public void logOut() {
         
@@ -133,18 +124,20 @@ public class ModelSystem {
     }
     
     public Ticket registerVehicleEntry(String plate, VehicleType type) {
-        if (!validatePlate(plate, type)) {
-            return null;
-        }
+       
+    
+        plate = plate.toUpperCase(); // Normalizamos a mayúsculas
+    
         
+    
         if (currentParking.isVehicleParked(plate)) {
-            return null; // Vehicle already in parking
+            return null; // El vehículo ya está registrado
         }
-        
+    
         if (!currentParking.hasSpace(type)) {
-            return null; // No space available
+            return null; // No hay espacio disponible para ese tipo de vehículo
         }
-        
+    
         Vehicle vehicle = new Vehicle(plate, type);
         return currentParking.createEntryTicket(vehicle);
     }
@@ -173,6 +166,27 @@ public class ModelSystem {
     public int vehicleEntry(){
         return currentParking.getVehicleEntry();
     }
+    public boolean vehicleParked(String plate){
+        if(currentParking.isVehicleParked(plate)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public boolean spaces(String type){
+        VehicleType typeVehicle = VehicleType.fromString(type);
+        if(currentParking.hasSpace(typeVehicle)){
+            return true;
+        }else{ 
+            return false;
+        }
+    }
+    public int minorSpaces(String type){
+        VehicleType typeVehicle = VehicleType.fromString(type);
+        return currentParking.getAvailableSpaces(typeVehicle);
+    }
+
+    
     
     public Ticket registerVehicleExit(String plate) {
         return currentParking.processExit(plate);

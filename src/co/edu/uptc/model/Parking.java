@@ -32,7 +32,7 @@ public class Parking {
         this.totalSpacesByType = new HashMap<>();
         this.spaces = spaces;
         this.totalSpacesByType.put(VehicleType.CAR, 7);
-        this.totalSpacesByType.put(VehicleType.MOTORCYCLE, 3);
+        this.totalSpacesByType.put(VehicleType.MOTORCYCLE, 7);
         this.parkedVehicles = new ArrayList<>();
         this.allTickets = new ArrayList<>();
         this.nextTicketId = 1000;
@@ -57,9 +57,17 @@ public class Parking {
         return getAvailableSpaces(vehicleTypetype) > 0;
     }
     
-    public boolean isVehicleParked(String plate) {
+    /*public boolean isVehicleParked(String plate) {
         return parkedVehicles.stream()
                 .anyMatch(v -> v.getPlate().equalsIgnoreCase(plate));
+    }*/
+    public boolean isVehicleParked(String plate) {
+        for (Vehicle vehicle : parkedVehicles) {
+            if (vehicle.getPlate().equalsIgnoreCase(plate)) {
+                return true;
+            }
+        }
+        return false;
     }
     
     public Ticket createEntryTicket(Vehicle vehicle) {
@@ -71,6 +79,7 @@ public class Parking {
         Ticket ticket = new Ticket(nextTicketId++, vehicle, LocalDateTime.now(), LocalDateTime.now());
         allTickets.add(ticket);
         vehicleEntry++;
+        nextTicketId++;
         return ticket;
     }
     
@@ -122,8 +131,10 @@ public class Parking {
     public Map<VehicleType, Integer> getTotalSpacesByType() {
         return totalSpacesByType;
     }
-    @Override
-    public String toString() {
-        return "Parking [name=" + name + ", address=" + address + ", spaces=" + spaces + "]";
+
+    public int getNextTicketId() {
+        return nextTicketId;
     }
+
+    
 }
